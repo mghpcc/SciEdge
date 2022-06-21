@@ -22,6 +22,16 @@ The only changes needed for either should be to sed replace `<hostname>` with yo
 
 You may also need to change the pathing to your hosts ssl keys if not using letsencrypt like I am in this example.
 
+REMEMBER TO CONFIG OR TURN OFF SELINUX!!
+
+#### Register App with CiLogon or Globus
+
+All you need to register is to know your redirect URI which should just be `/oidc` off the root of your hostname i.e. `https://ood-dev.mghpcc.org/oidc`
+
+* Globus is self serving so you can just go to `https://auth.globus.org/v2/web/developers` and register your app
+
+* CiLogon requires reaching out to the admins: https://cilogon.org/oauth2/register
+
 #### Customize OOD config 
 
 In `etc/ood/config` you will find `ood-portal.yml`. This file is used during build time to generate the apache config for OnDemand that will live in the container.
@@ -49,5 +59,5 @@ To start the pod for the first time, do `./start_ondemand_ctr.sh`
 
 After that, you can restart the pod with `podman pod restart ood_pod`
 
-To get a shell in the container to debug, user `podman exec -it ondemand_ctr bash`
+To get a shell in the running container to debug, user `podman exec -it ondemand_ctr bash`
 
