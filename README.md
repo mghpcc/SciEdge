@@ -6,6 +6,8 @@ I have done my best to inline comment in the various custom scripts and config f
 
 The container stand-up instructions assume you are working as a local user (not root) and have the root of this repo in `$HOME`.
 
+** NOTE: This containerization currently only uses a local user inside the container which is made during the container build process. LDAP and user creation are being worked on now**
+
 #### Prerequisits
 
 1. Public IP with DNS
@@ -27,6 +29,8 @@ REMEMBER TO CONFIG OR TURN OFF SELINUX!!
 #### Register App with CiLogon or Globus
 
 All you need to register is to know your redirect URI which should just be `/oidc` off the root of your hostname i.e. `https://ood-dev.mghpcc.org/oidc`
+
+Make sure to register the App to ask for the `openid` and `email` scope.
 
 * Globus is self serving so you can just go to `https://auth.globus.org/v2/web/developers` and register your app
 
