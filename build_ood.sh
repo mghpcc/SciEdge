@@ -12,7 +12,7 @@ buildah run $ctr -- dnf config-manager --set-enabled powertools
 buildah run $ctr -- yum install -y https://yum.osc.edu/ondemand/2.0/ondemand-release-web-2.0-1.noarch.rpm
 buildah run $ctr -- dnf install -y ondemand vim openssh-server python3 findutils nc 
 buildah run $ctr -- dnf install -y mod_auth_openidc
-buildah run $ctr -- dnf install -y mod_authnz_pam
+buildah run $ctr -- dnf install -y mod_authnz_pam openldap-clients
 buildah run $ctr -- ln -s /usr/bin/python3 /usr/bin/python
 buildah run $ctr -- python -m pip install virtualenv
 
