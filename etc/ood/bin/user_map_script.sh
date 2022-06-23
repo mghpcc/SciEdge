@@ -6,8 +6,8 @@ USERNAME=$(echo $INPUT | awk -F@ '{print $1}')
 if [ $? -eq 0  ]; then
 
 	#Can check ldap here if ldap is configured
-	LDAPUSER=$(ldapsearch -x uid=$USERNAME | grep "uid:" | awk '{print $2}') 
-	LOCALUSER=$(getent passwd $USERNAME)
+	LDAPUSER=$(ldapsearch -x mail=$INPUT | grep "uid:" | awk '{print $2}') 
+	LOCALUSER=$(getent passwd $USERNAME | awk -F ":" '{print $1}')
 
 	if [[ "$LDAPUSER" == "$LOCALUSER" ]]; then
 		echo $LOCALUSER

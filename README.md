@@ -65,3 +65,20 @@ After that, you can restart the pod with `podman pod restart ood_pod`
 
 To get a shell in the running container to debug, user `podman exec -it ondemand_ctr bash`
 
+
+#### Users and Groups
+
+The template provides the basic /etc/passwd and /etc/group that is would be made during the building of the image and container. These get mounted into the container at run time along with /home. 
+
+At this point, manually create users inside the container based on their upstream ldap info, i.e. match gid, uid, and make them a /home dir. The passwd and group changes are maintained across restarts and rebuilds as the passwd and group files are volume mounted into the container.
+
+The user_map_script runs inside the container upon a successful upstream IDP login. The script pulls the username from the email provided in the OpenIDC response and runs an LDAPSEARCH. At the same time, the script runs a getent locally trying to find a local user with the same username. Finally, it compares the ldapsearch response to the localuser search and if it gets a match, it returns the username to OOD where it should then be able to spin up the per-user-nginx bits. 
+
+This process basically confirms the 2 things needed for an authorized and ultimately successful login: 
+
+  1. The email in the OpenIDC response matches the email of a user in LDAP
+  2. A local Linux user matches the uid of the ldap user that matched to the OpenIDC provided email 
+
+
+
+I also maintain the ability to map to a manually maintained usermap file for now although this can be turned off if the only users that should be able to login are in ldap.
