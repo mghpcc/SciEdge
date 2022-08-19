@@ -6,7 +6,6 @@ I have done my best to inline comment in the various custom scripts and config f
 
 The container stand-up instructions assume you are working as a local user (not root) and have the root of this repo in `$HOME`.
 
-** NOTE: This containerization currently only uses a local user inside the container which is made during the container build process. LDAP and user creation are being worked on now**
 
 #### Prerequisits
 
