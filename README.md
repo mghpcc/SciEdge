@@ -16,6 +16,17 @@ The container stand-up instructions assume you are working as a local user (not 
 4. local user on hostmachine to run the container rootless
 5. OIDC ClientID and Secret from an upstream OpenID Connect IDP like Globus or CiLogon
 
+#### Setup Host Machine Security and Limits
+ 
+Turning off selinux is the easiest thing but generally bad form so instead you must set the following:
+
+	* `setsebool -P container_manage_cgroup true`
+	* `setsebool -P httpd_can_network_relay 1`
+	* `setsebool -P httpd_can_network_connect 1`
+
+Many organizations have UID and GID's that are in the hundreds of thousands. To allow for +65k UID/GID's, increase the subuid and subgid limit for the user that is running the container by editing `/etc/subuid` and `/etc/subgid`. Then you need to kill the pause process running for the user whos suibuid and subgid you changed my running `podman system migrate`.  
+
+
 #### Setup Hosts Apache Config
 
 I have provided example configs in the `etc` dir for both Ubuntu style apache2.conf and RHEL style httpd.
@@ -24,7 +35,6 @@ The only changes needed for either should be to sed replace `<hostname>` with yo
 
 You may also need to change the pathing to your hosts ssl keys if not using letsencrypt like I am in this example.
 
-REMEMBER TO CONFIG OR TURN OFF SELINUX!!
 
 #### Register App with CiLogon or Globus
 
@@ -59,12 +69,11 @@ If you are not using the standard letsencrypt cert location you need to tweak th
 
 Now you can `./build_ood.sh`
 
+Next, edit GIT_ROOT in start_ondemand_ctr.sh if the root of the git is not `~/ERN-Remote-Scientific-Instrument`
+
 To start the pod for the first time, do `./start_ondemand_ctr.sh`
 
-After that, you can restart the pod with `podman pod restart ood_pod`
-
-To get a shell in the running container to debug, user `podman exec -it ondemand_ctr bash`
-
+You can get a shell inside the running container with `podman exec -it ondemand_ctr bash`
 
 #### Users and Groups
 
@@ -79,6 +88,10 @@ This process basically confirms the 2 things needed for an authorized and ultima
   1. The email in the OpenIDC response matches the email of a user in LDAP
   2. A local Linux user matches the uid of the ldap user that matched to the OpenIDC provided email 
 
-
-
 I also maintain the ability to map to a manually maintained usermap file for now although this can be turned off if the only users that should be able to login are in ldap.
+
+#### Edit VNC Redirect in Flask App
+
+In the file `var/www/ood/apps/sys/Flask/templates/index.html`, simply edit 
+
+----PENDING---- Add to me

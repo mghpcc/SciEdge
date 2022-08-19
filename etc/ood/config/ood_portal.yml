@@ -13,13 +13,13 @@ listen_addr_port: 443
 # Example:
 #     servername: 'www.example.com'
 # Default: null (don't use name-based Virtual Host)
-servername: ood-dev.mghpcc.org
+servername: <hostname> 
 
 # The server name used for rewrites
 # Example:
 #     proxy_server: 'proxy.example.com'
 # Default: The value of servername
-#proxy_server: ood-dev.mghpcc.org
+#proxy_server: <hostname>
 
 # The port specification for the Virtual Host
 # Example:
@@ -39,9 +39,9 @@ ssl:
   #  - 'SSLCertificateFile "/etc/ssl/private/ood.local.crt"'
   #  - 'SSLCertificateKeyFile "/etc/ssl/private/ood.local.key"'
   #  - 'SSLCertificateChainFile "/etc/ssl/private/ood.local.crt"'
-  - 'SSLCertificateFile "/etc/letsencrypt/live/ood-dev.mghpcc.org/cert.pem"'
-  - 'SSLCertificateKeyFile "/etc/letsencrypt/live/ood-dev.mghpcc.org/privkey.pem"'
-  - 'SSLCertificateChainFile "/etc/letsencrypt/live/ood-dev.mghpcc.org/fullchain.pem"'
+  - 'SSLCertificateFile "/etc/letsencrypt/live/<hostname>/cert.pem"'
+  - 'SSLCertificateKeyFile "/etc/letsencrypt/live/<hostname>/privkey.pem"'
+  - 'SSLCertificateChainFile "/etc/letsencrypt/live/<hostname>/fullchain.pem"'
 
 
 # Root directory of log files (can be relative ServerRoot)
@@ -327,7 +327,8 @@ oidc_uri: /oidc
 # Example:
 #     oidc_provider_metadata_url: https://example.com:5554/.well-known/openid-configuration
 # Default: null (value auto-generated if using Dex)
-oidc_provider_metadata_url: https://auth.globus.org/.well-known/openid-configuration
+#oidc_provider_metadata_url: https://auth.globus.org/.well-known/openid-configuration
+oidc_provider_metadata_url: <.well-known for upstream IDP>
 
 # OIDC client ID
 # Example:
@@ -432,7 +433,7 @@ dex: false
   #      issuer: https://auth.globus.org
   #      clientID: "8f9ae503-030d-4c9e-ba3d-35034e0db087"
   #      clientSecret: "H/wj9yRy+9GSo5AWHnhEX4UyQ/tvO9rFyengEMaCaVA="
-  #      redirectURI: https://ood-dev.mghpcc.org:5554/callback
+  #      redirectURI: https://<hostname>:5554/callback
   #      scopes:
   #        - email
   #        - profile
