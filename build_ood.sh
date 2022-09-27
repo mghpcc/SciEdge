@@ -5,7 +5,7 @@ GIT_ROOT=$HOME/ERN-Remote-Scientific-Instrument
 
 ctr=ondemand_image
 
-buildah from --name $ctr docker://rockylinux:latest
+buildah from --name $ctr docker://rockylinux:8
 
 buildah run $ctr -- dnf -y module enable ruby:2.7
 buildah run $ctr -- dnf -y module enable nodejs:12
