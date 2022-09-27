@@ -1,5 +1,8 @@
 #!/bin/bash
 
+GIT_ROOT=$HOME/ERN-Remote-Scientific-Instrument
+
+
 ctr=ondemand_image
 
 buildah from --name $ctr docker://rockylinux:latest
@@ -33,11 +36,11 @@ buildah run $ctr -- chgrp apache /etc/shadow
 
 
 
-buildah run -v $HOME/podman-ood/etc/ood:/etc/ood:Z $ctr -- /opt/ood/ood-portal-generator/sbin/update_ood_portal
-buildah run -v $HOME/podman-ood/etc/ood:/etc/ood:Z $ctr -- mv /etc/httpd/conf.d/ood-portal.conf.new /etc/httpd/conf.d/ood-portal.conf
+buildah run -v $GIT_ROOT/etc/ood:/etc/ood:Z $ctr -- /opt/ood/ood-portal-generator/sbin/update_ood_portal
+buildah run -v $GIT_ROOT/etc/ood:/etc/ood:Z $ctr -- mv /etc/httpd/conf.d/ood-portal.conf.new /etc/httpd/conf.d/ood-portal.conf
 
 
-buildah run -v $HOME/podman-ood/var/www/ood/apps/sys/Flask:/var/www/ood/apps/sys/Flask:Z $ctr -- bash -c 'cd /var/www/ood/apps/sys/Flask && ./setup.sh'
+buildah run -v $GIT_ROOT/var/www/ood/apps/sys/Flask:/var/www/ood/apps/sys/Flask:Z $ctr -- bash -c 'cd /var/www/ood/apps/sys/Flask && ./setup.sh'
 
 buildah run $ctr -- systemctl enable httpd
 
