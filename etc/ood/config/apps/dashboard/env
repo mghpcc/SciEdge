@@ -1,0 +1,5 @@
+MOTD_PATH="/etc/ood/config/motd.d/motd.md.erb"
+MOTD_FORMAT="markdown_erb"
+OOD_LOCALE=en
+SHOW_ALL_APPS_LINK=false
+

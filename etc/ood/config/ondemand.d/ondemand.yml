@@ -1,0 +1,10 @@
+dashboard_layout:
+  rows:
+    - columns:
+      - width: 12
+        widgets:
+          - motd
+          - pinned_apps
+pinned_apps:
+  - 'sys/Arctica'
+    
