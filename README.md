@@ -90,3 +90,4 @@ This process basically confirms the 2 things needed for an authorized and ultima
 
 Currently the Flask app that handles the redirect to a vnc server is very simple. To change where the button redirects to, edit the `var/www/ood/apps/sys/Flask/templates/index.html`, and simply change the href. Expansion and customization of this is also encouraged.
 
+![](https://github.com/mghpcc/ERN-Remote-Scientific-Instrument/blob/main/Screenshot_2022-11-08_14-54-58.png)
