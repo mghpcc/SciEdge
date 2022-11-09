@@ -31,8 +31,9 @@
 # Custom environment variables to set for the PUN environment
 # Below is an example of the use for setting env vars.
 #
-# pun_custom_env:
-#   OOD_DASHBOARD_TITLE: "Open OnDemand"
+ pun_custom_env:
+   OOD_DASHBOARD_TITLE: "ERN Open OnDemand"
+   OOD_BRAND_BG_COLOR: 'blue'
 #   OOD_BRAND_BG_COLOR: "#53565a"
 #   OOD_BRAND_LINK_ACTIVE_BG_COLOR: "#fff"
 
