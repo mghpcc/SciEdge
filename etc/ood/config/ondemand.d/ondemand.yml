@@ -7,4 +7,6 @@ dashboard_layout:
           - pinned_apps
 pinned_apps:
   - 'sys/Arctica'
+  - 'sys/Aquilos'
+  - 'sys/Cryosparc'
     
