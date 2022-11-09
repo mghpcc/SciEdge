@@ -1,2 +1,2 @@
-NavConfig.categories=["Instrument Access","Interactive Apps"]
+NavConfig.categories=["Instrument Access","Analysis"]
 NavConfig.categories_whitelist=true
