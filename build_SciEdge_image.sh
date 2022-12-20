@@ -1,9 +1,9 @@
 #!/bin/bash
 
-GIT_ROOT=$HOME/ERN-Remote-Scientific-Instrument
+GIT_ROOT=$HOME/SciEdge
 
 
-ctr=ondemand_image
+ctr=SciEdge_image
 
 buildah from --name $ctr docker://rockylinux:8
 

@@ -1,10 +1,8 @@
-## Podman Containerized Open OnDemand Template
+# Science at the Edge: A Containerized Open OnDemand Portal for instrument access and edge computing  
 
-This is a template for spinning up OOD in a container using OpenID connect for SSO authentication to map to a local user from an email. For demo sake, the local user mapping are simplistic but with some additions/tweaks is close to what I use in production for multiple deployments
+This is a template for spinning up OOD in a container using OpenID connect for SSO authentication which maps to a local user from an email. For demo sake, the local user mapping are simplistic but with some additions/tweaks is close to what we use in production for multiple deployments
 
-I have done my best to inline comment in the various custom scripts and config files. As a result this readme is more aimed at what you need to do before deployment, the various files one needs to know about for changes/customizations and how to build and start the pod.
-
-The container stand-up instructions assume you are working as root and have the root of this git in `$HOME`.
+I have done my best to inline comment in the various custom scripts and config files. As a result this readme is more aimed at what you need to do before deployment, the various files one needs to know about for changes/customizations and how to build and start the container. The container stand-up instructions assume you are working as root and have the root of this git in `$HOME`.
 
 
 #### Prerequisits
@@ -28,7 +26,7 @@ Turning off selinux is the easiest thing to do but bad form so instead you must 
 
 I have provided example configs in the `etc` dir for both Ubuntu style apache2.conf and RHEL style httpd.
 
-The only changes needed for either should be to sed replace `<hostname>` with your actual hostname. 
+The only changes needed for either should be to sed (or edit in a text editor) replace `<hostname>` with your actual hostname. 
 
 You may also need to change the pathing to your hosts ssl keys if not using letsencrypt like I am in this example.
 
@@ -39,7 +37,7 @@ All you need to know about your environment when registering with an IDP is your
 
 Make sure when registering the App to ask for the `openid` and `email` scope.
 
-* Globus is self serving so you can just go to `https://auth.globus.org/v2/web/developers` and register your app
+* Globus is self serving so you can just go to `https://auth.globus.org/v2/web/developers` and register your app automatically. 
 
 * CiLogon requires reaching out to the admins: https://cilogon.org/oauth2/register
 
@@ -54,21 +52,22 @@ The needed tweaks are the following:
 * set `oidc_provider_metadata_url:` to what your upstream IDP's well-known url is, for Globus, it is https://auth.globus.org/.well-known/openid-configuration
 * set `oidc_client_id:` to what your IDP has provided for your client
 * set `oidc_client_secret:` to what your IDP provided as a secret
+* (optionally needed) You may need to change `oidc_remote_user_claim:` from "openid" to "email" depending on how your upstream IDP provider passes data in the openid connect process.
 
 #### Allow ssl cert readability for local user
 
-If you are not using the standard letsencrypt cert location you need to tweak the script `start_ondemand_ctr.sh` so that the volume mounts are correct. In that script, set the `SSL_CERT_ROOT_PATH` accordingly
+If you are not using the standard letsencrypt cert location you need to tweak the script `start_SciEdge_ctr.sh` so that the volume mounts are correct. In that script, set the `SSL_CERT_ROOT_PATH` accordingly
 
 
 #### Build the image and start the pod
 
-Now you can run `./build_ood.sh`
+Now you can run `./build_SciEdge_image.sh`
 
-Next, edit GIT_ROOT in start_ondemand_ctr.sh if the root of the git is not `~/ERN-Remote-Scientific-Instrument`
+Next, edit GIT_ROOT in start_ondemand_ctr.sh if the root of the git is not `~/SciEdge`
 
-To start the pod for the first time, do `./start_ondemand_ctr.sh`
+To start the pod for the first time, do `./start_SciEdge_ctr.sh`
 
-You can get a shell inside the running container with `podman exec -it ondemand_ctr bash`
+You can get a shell inside the running container with `podman exec -it SciEdge_ctr bash`
 
 #### Users and Groups
 
