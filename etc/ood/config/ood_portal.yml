@@ -346,7 +346,7 @@ oidc_client_secret: <secret provided by upstream IDP>
 # Example:
 #     oidc_remote_user_claim: preferred_username
 # Default: preferred_username
-oidc_remote_user_claim: openid
+oidc_remote_user_claim: email
 
 # OIDC scopes
 # Example:
