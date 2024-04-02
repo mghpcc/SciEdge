@@ -18,7 +18,7 @@ $buildah_run_command $ctr -- dnf install -y mod_auth_openidc
 $buildah_run_command $ctr -- dnf install -y mod_authnz_pam mod_proxy_html openldap-clients
 sudo buildah run $ctr -- ln -s /usr/bin/python3 /usr/bin/python
 $buildah_run_command $ctr -- python -m pip install virtualenv
-$buildah_run_command $ctr /bin/bash -c 'curl https://turbovnc.org/pmwiki/uploads/Downloads/TurboVNC.repo > /etc/yum.repos.d/turbovnc.repo'
+$buildah_run_command $ctr /bin/bash -c 'wget https://raw.githubusercontent.com/TurboVNC/repo/main/TurboVNC.repo -O /etc/yum.repos.d/turbovnc.repo'
 $buildah_run_command $ctr -- dnf install -y turbovnc
 sudo buildah run $ctr -- mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.off
 sudo buildah run $ctr -- mkdir /var/log/apache_testing
