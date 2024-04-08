@@ -12,24 +12,15 @@ I have done my best to inline comment in the various custom scripts and config f
 3. ssl certificate (this example uses letsencrypt)
 4. OIDC ClientID and Secret from an upstream OpenID Connect IDP like Globus or CiLogon
 
-#### Setup Host Machine Security and Limits
- 
-Turning off selinux is the easiest thing to do but bad form so instead you must set the following:
+#### Setup Host Machine Security and Limits (optional)
+This example uses the `--priviledged` podman-run flag which tells the podman engine to run without additional secuity additions which simplistically speaking allows easy read/write access to host level filesystems.
+
+Along with running with `--priviledged`, instead of turning off selinux you must also allow the following:
 
 	* `setsebool -P container_manage_cgroup true`
 	* `setsebool -P httpd_can_network_relay 1`
 	* `setsebool -P httpd_can_network_connect 1`
   
-
-
-#### Setup Hosts Apache Config
-
-I have provided example configs in the `etc` dir for both Ubuntu style apache2.conf and RHEL style httpd.
-
-The only changes needed for either should be to sed (or edit in a text editor) replace `<hostname>` with your actual hostname. 
-
-You may also need to change the pathing to your hosts ssl keys if not using letsencrypt like I am in this example.
-
 
 #### Register App with CiLogon or Globus
 
