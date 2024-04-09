@@ -20,6 +20,7 @@ sudo buildah run $ctr -- ln -s /usr/bin/python3 /usr/bin/python
 $buildah_run_command $ctr -- python -m pip install virtualenv
 $buildah_run_command $ctr /bin/bash -c 'wget https://raw.githubusercontent.com/TurboVNC/repo/main/TurboVNC.repo -O /etc/yum.repos.d/turbovnc.repo'
 $buildah_run_command $ctr -- dnf install -y turbovnc
+$buildah_run_command $ctr -- pip3 install flask
 sudo buildah run $ctr -- mv /etc/httpd/conf.d/ssl.conf /etc/httpd/conf.d/ssl.off
 sudo buildah run $ctr -- mkdir /var/log/apache_testing
 # This section adds the ability to make system users that can login
